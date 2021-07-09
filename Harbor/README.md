@@ -191,8 +191,8 @@ sudo docker login <YourFQDN>.com
 建立方式  
 登入Harbor頁面之後  
 點選`新建項目`  
-依序輸入
-`項目名稱`      : demo
+依序輸入  
+`項目名稱`      : demo  
 `訪問級別`      :選擇公開  
 `Proxy Cache`   : 開啟  
 圖片  
