@@ -132,7 +132,12 @@ cp harbor.yml.tmpl harbor.yml
 vim harbor.yml 
 ```
 編輯完成之後如圖  
-我測試用的FQDN為resinharbor.com
+我測試用的FQDN為resinharbor.com  
 圖片  
 
-####   
+#### 安裝  
+
+```
+sudo ./install.sh
+```
+
