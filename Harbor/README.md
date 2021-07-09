@@ -5,7 +5,7 @@
 
 #### 環境硬體配置(建議需求)  
 使用的環境為  
-OS      :ubutnu desktop 20.04  
+OS      :ubutu desktop 20.04  
 CPU     :4 CPU  
 Memory  :8 GB  
 Disk    :200GB  
@@ -141,3 +141,31 @@ vim harbor.yml
 sudo ./install.sh
 ```
 
+#### 相關測試
+接下來就可以透過FQDN連線進去  
+預設帳號`amdin` 密碼  `Harbor12345`  
+此組帳號密碼可以在harbor.yml內設定  
+
+## 測試步驟  
+
+### Docker login  
+可以在其他主機登入此組harbor  
+登入所需要的憑證為  
+`resinharbor.com.cert`  
+`ca.crt`  
+`resinharbor.com.key`   
+#### 將登入憑證放入目標機器  
+
+目標機器也需要  
+先在目標機器產生資料夾  
+
+```
+sudo mkdir /etc/docker/certs.d
+sudo mkdir /etc/docker/certs.d/<YourFQDN>.com
+```
+將`resinharbor.com.cert` `ca.crt` `resinharbor.com.key` 放入此資料夾內
+
+進行docker login
+```
+sudo docker login <YourFQDN>.com
+```
