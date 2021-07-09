@@ -30,8 +30,10 @@ sudo apt-get install net-tools
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
+```
 
-#確認安裝版本
+確認安裝版本
+```
 sudo docker --version
 ```
 
@@ -39,14 +41,17 @@ sudo docker --version
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+```
 
-#確認安裝版本
+確認安裝版本
+```
 sudo docker-compose --version
 ```
 
 ### 憑證準備  
 
-#### 建立放資料夾  
+#### 建立存放資料夾  
+
 憑證將會放到此資料夾，接下來harbor的安裝包也會下載到這邊  
 ```
 mkdir harbor
@@ -61,26 +66,29 @@ cd harbor/
 參數可以跟自行修改或是按照步驟中設定即可  
 
 
-
-
+生成 CA key
 ```
-#生成 CA key
 openssl genrsa -out ca.key 4096
-#生成 CA 憑證
+```
+
+生成 CA 憑證
+```
 openssl req -x509 -new -nodes -sha512 -days 3650 -subj  "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=<YourFQDN>.com" -key ca.key -out ca.crt
 ```
 
-
 #### 生成 server的憑證  
+
 憑證通常包含一個 .crt 文件和一個 .key 文件  
 
+生成私有金鑰  
 ```
-#生成私有金鑰
 openssl genrsa -out <YourFQDN>.com.key 4096
-#生成certificate signing request(CSR)
-openssl req -sha512 -new -subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=<YourFQDN>.com" -key <YourFQDN>.com.key -out <YourFQDN>.com.csr
 ```
 
+生成certificate signing request(CSR)  
+```
+openssl req -sha512 -new -subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=<YourFQDN>.com" -key <YourFQDN>.com.key -out <YourFQDN>.com.csr
+```
 
 #### 建立 x509 v3 擴展文件  
 
@@ -115,6 +123,7 @@ openssl x509 -inform PEM -in <YourFQDN>.com.crt -out <YourFQDN>.com.cert
 ### Harbor安裝  
 
 #### 使用離線安裝包  
+
 版本為2.2.3  
 解壓縮之後進入資料夾
 ```
@@ -124,6 +133,7 @@ cd harbor/
 ```
 
 #### 複製及編輯設定檔  
+
 需要修改兩個部分  
 hostname  
 https的certificate跟private_key  
@@ -141,24 +151,27 @@ vim harbor.yml
 sudo ./install.sh
 ```
 
-#### 相關測試
+#### 網頁連線測試
 接下來就可以透過FQDN連線進去  
+<https://yourdomain.com/>  
+(需要設定DNS連線，或是設定hosts指向此FQDN對應的IP)
 預設帳號`amdin` 密碼  `Harbor12345`  
 此組帳號密碼可以在harbor.yml內設定  
 
 ## 測試步驟  
 
 ### Docker login  
+
 可以在其他主機登入此組harbor  
 登入所需要的憑證為  
 `resinharbor.com.cert`  
 `ca.crt`  
 `resinharbor.com.key`   
+
 #### 將登入憑證放入目標機器  
 
 目標機器也需要  
 先在目標機器產生資料夾  
-
 ```
 sudo mkdir /etc/docker/certs.d
 sudo mkdir /etc/docker/certs.d/<YourFQDN>.com
@@ -169,3 +182,38 @@ sudo mkdir /etc/docker/certs.d/<YourFQDN>.com
 ```
 sudo docker login <YourFQDN>.com
 ```
+
+### Push images
+
+#### 建立project
+
+需要先建立一個`project`  
+建立方式  
+登入Harbor頁面之後  
+點選`新建項目`  
+依序輸入
+`項目名稱`      : demo
+`訪問級別`      :選擇公開  
+`Proxy Cache`   : 開啟  
+圖片  
+
+#### 下載images  
+
+下載images，這邊使用ubutnu當作範例  
+```
+sudo docker pull ubuntu
+```
+
+#### 推送images
+
+先將images打上FQDN的tag之後  
+執行push  
+```
+sudo docker tag ubuntu:latest <YourFQDN>.com/demo/ubuntu:latest
+sudo docker push <YourFQDN>.com/demo/ubuntu:latest
+```
+
+### Pull images
+
+再Pull Images的時候也需要執行登入指令   
+包含登入以及放入憑證  
