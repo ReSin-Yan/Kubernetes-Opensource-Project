@@ -143,7 +143,7 @@ vim harbor.yml
 ```
 編輯完成之後如圖  
 我測試用的FQDN為resinharbor.com  
-<https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/harbor%E8%A8%AD%E5%AE%9A.PNG>    
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/harbor%E8%A8%AD%E5%AE%9A.PNG)   
 
 #### 安裝  
 
@@ -195,7 +195,8 @@ sudo docker login <YourFQDN>.com
 `項目名稱`      : demo  
 `訪問級別`      :選擇公開  
 `Proxy Cache`   : 開啟  
-<https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/harborNewProject.PNG>    
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/harborNewProject.PNG)   
+   
 
 #### 下載images  
 
