@@ -84,11 +84,8 @@ kubectl edit tkgServiceConfiguration
  | 參數 | 輸入值 | 
 |-------|:-----:| 
 | name   |  yourFQDN.com  |  
-| data   |  前一個步驟複製下來轉成base64的認證碼  |
-| namespaces | demo |
-name: yourFQDN.com  
-data: 前一個步驟複製下來轉成base64的認證碼  
-可以有多個認證  
+| data   |  [前一步驟所複製base64轉碼](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/Tanuz%20use%20externel%20harbor/README.md#%E5%B0%87%E6%96%87%E5%AD%97%E8%BD%89%E6%8F%9B%E6%88%90base64%E6%A0%BC%E5%BC%8F "link")  |
+ 
 ```
 apiVersion: run.tanzu.vmware.com/v1alpha1
 kind: TkgServiceConfiguration
@@ -177,3 +174,4 @@ spec:
         - containerPort: 80
 ```
 
+之後部屬此檔案進行測試
