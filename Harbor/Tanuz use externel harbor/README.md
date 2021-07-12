@@ -1,13 +1,14 @@
 # Tanzu Guest Cluster使用外部式的Harbor  
 Latest update: 2021/07/12  
-Tanzu 目前分為TKGs以及TKGm兩種模式  
-其中TKGs又分為使用vDS以及NSX-T版本  
-再NSX-T版本中，有包含了內嵌式的Harbor，但是在vDS版本中，就沒有包含內嵌式的Harbor  
+
+TKGs的安裝方式分為vDS以及NSX-T版本  
+NSX-T版本中，有包含了內嵌式的Harbor，但是在vDS版本中，就沒有包含內嵌式的Harbor  
 所以本內容會著重在如何在沒有內嵌式Harbor的環境下，使用外部式的Harbor  
 
 本文參考設定  
-https://www.youtube.com/watch?v=sqC9bP8gwQ0&ab_channel=VMwareTanzu  
-https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-376FCCD1-7743-4202-ACCA-56F214B6892F.html  
+[Video範例](https://www.youtube.com/watch?v=sqC9bP8gwQ0&ab_channel=VMwareTanzu   "link")  
+[參考文件](https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-376FCCD1-7743-4202-ACCA-56F214B6892F.html "link")
+  
 
 ## 設定步驟  
 
@@ -28,28 +29,38 @@ openssl s_client -connect <your harbor FQDN>.com:443
 輸入之後，點`Ctrl + c`退出  
 
 複製下Server certificate全部的資訊  
-如圖所示  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/Tanuz%20use%20externel%20harbor/harborServer%20certificate.png "img")  
 需要確保連同`-----BEGIN CERTIFICATE-----`以及`-----END CERTIFICATE-----` 都要複製
 
 #### 將文字轉換成Base64格式  
 
-投過以下網站進行  
-Base64  https://base64.guru/
+透過以下網站進行  
+[Base64](https://base64.guru/ "link")  
 
 左方工具列`Encoders` > `Text to Base64` 
 將剛剛複製下來的資訊貼到`Text*`欄位中  
 點選`Encode Text to Base64`  
-圖片
-
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/Tanuz%20use%20externel%20harbor/TextToBase64.png "img")  
 將產出的內容複製下來  
+
+#### Linux client Docker login
+
+[參考方式](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/tree/main/Harbor#docker-login "link")  
+由於在worker端是沒有docker login的憑證，只有SSL的  
+所以需要在linux client透過docker login的方式進行登入環境  
+
+
 #### 編輯TkgServiceConfiguration  
 
 在vsphere7.0.2之後，針對外部的認證，新增的設定值  
 先登入Tanzu的SC namespaces內  
 指令對應的參數根據環境輸入  
-登入IP為server 10.74.0.1  
-配置的登入user administrator@vsphere.local  
-配置的namespace為 demo  
+ | 參數 | 輸入值 | 
+|-------|:-----:| 
+| --server   |  10.74.0.1  |  
+| --vsphere-username   |  administrator@vsphere.local  |
+| namespaces | demo |
+
 
 ```
 kubectl vsphere login --insecure-skip-tls-verify --server 10.74.0.1 --vsphere-username administrator@vsphere.local
@@ -69,6 +80,12 @@ kubectl edit tkgServiceConfiguration
 參考以下方式進行修改  
 新增在設定的最下面spec  
 
+
+ | 參數 | 輸入值 | 
+|-------|:-----:| 
+| name   |  yourFQDN.com  |  
+| data   |  前一個步驟複製下來轉成base64的認證碼  |
+| namespaces | demo |
 name: yourFQDN.com  
 data: 前一個步驟複製下來轉成base64的認證碼  
 可以有多個認證  
