@@ -26,7 +26,7 @@ Openssl         : 最新版本
 
 環境更新及安裝基本套件  
 ```
-sudo apt-get udpate && sudo apt-get -y upgrade
+sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install vim build-essential curl ssh
 sudo apt-get install net-tools
 ```
