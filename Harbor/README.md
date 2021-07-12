@@ -1,5 +1,10 @@
 # Harbor  
-以下提供Https + FQDN的 Harbor安裝模式  
+此資料夾包含安裝步驟的說明文件，以及其他相關會用到的資訊  
+目前有:  
+再Tanzu環境使用外部式Harbor  
+
+
+以下為Https + FQDN的 Harbor安裝模式  
 
 ## 安裝步驟  
 
