@@ -2,8 +2,8 @@
 Latest update: 2021/07/12  
 Tanzu 目前分為TKGs以及TKGm兩種模式  
 其中TKGs又分為使用vDS以及NSX-T版本  
-再NSX-T版本中，有包含了內嵌式的Harbor，但是再vDS版本中，就沒有包含內嵌式的Harbor  
-所以本內容會著重在如何再沒有內嵌式Harbor的環境下，使用外部式的Harbor  
+再NSX-T版本中，有包含了內嵌式的Harbor，但是在vDS版本中，就沒有包含內嵌式的Harbor  
+所以本內容會著重在如何在沒有內嵌式Harbor的環境下，使用外部式的Harbor  
 
 本文參考設定  
 https://www.youtube.com/watch?v=sqC9bP8gwQ0&ab_channel=VMwareTanzu  
@@ -13,9 +13,9 @@ https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-376
 
 ### 環境準備  
 
-本內容使用的方式為再7.0.2版本新增的設定`TkgServiceConfiguration方式`  
-vSphere版本 >= 7.0.2  
-Harbor透過https的方式安裝完成  
+本內容使用的參數為在7.0.2版本新增的設定`TkgServiceConfiguration`方式  
+vSphere版本必須>=7.0.2  
+Harbor需透過https的方式安裝完成  
 
 ### 設定步驟  
 
@@ -38,7 +38,7 @@ Base64  https://base64.guru/
 
 左方工具列`Encoders` > `Text to Base64` 
 將剛剛複製下來的資訊貼到`Text*`欄位中  
-點選`Encode Text to Base64` 
+點選`Encode Text to Base64`  
 圖片
 
 將產出的內容複製下來  
@@ -76,22 +76,27 @@ data: 前一個步驟複製下來轉成base64的認證碼
 apiVersion: run.tanzu.vmware.com/v1alpha1
 kind: TkgServiceConfiguration
 metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"run.tanzu.vmware.com/v1alpha1","kind":"TkgServiceConfiguration","metadata":{"annotations":{},"creationTimestamp":"2021-06-14T14:59:40Z","generation":1,"name":"tkg-service-configuration","resourceVersion":"3016","selfLink":"/apis/run.tanzu.vmware.com/v1alpha1/tkgserviceconfigurations/tkg-service-configuration","uid":"60494827-07d3-4253-b755-5cf2c9130c1c"},"spec":{"defaultCNI":"antrea"}}
+  creationTimestamp: "2021-06-14T14:59:40Z"
+  generation: 5
   name: tkg-service-configuration
+  resourceVersion: "21388420"
+  selfLink: /apis/run.tanzu.vmware.com/v1alpha1/tkgserviceconfigurations/tkg-service-configuration
+  uid: 60494827-07d3-4253-b755-5cf2c9130c1c
 spec:
   defaultCNI: antrea
   trust:
     additionalTrustedCAs:
-      - name: first-cert-name
-        data: base64-encoded string of a PEM encoded public cert 1
-      - name: second-cert-name
-        data: base64-encoded string of a PEM encoded public cert 2
+    - data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlGK0RDQ0ErQ2dBd0lCQWdJVVltNTRrZERlcjI0RlFUMnUydWhyN2l6dGJPa3dEUVlKS29aSWh2Y05BUUVODQpCUUF3Y0RFTE1Ba0dBMVVFQmhNQ1EwNHhFREFPQmdOVkJBZ01CMEpsYVdwcGJtY3hFREFPQmdOVkJBY01CMEpsDQphV3BwYm1jeEVEQU9CZ05WQkFvTUIyVjRZVzF3YkdVeEVUQVBCZ05WQkFzTUNGQmxjbk52Ym1Gc01SZ3dGZ1lEDQpWUVFEREE5eVpYTnBibWhoY21KdmNpNWpiMjB3SGhjTk1qRXdOekE1TURFd05EUTRXaGNOTXpFd056QTNNREV3DQpORFE0V2pCd01Rc3dDUVlEVlFRR0V3SkRUakVRTUE0R0ExVUVDQXdIUW1WcGFtbHVaekVRTUE0R0ExVUVCd3dIDQpRbVZwYW1sdVp6RVFNQTRHQTFVRUNnd0haWGhoYlhCc1pURVJNQThHQTFVRUN3d0lVR1Z5YzI5dVlXd3hHREFXDQpCZ05WQkFNTUQzSmxjMmx1YUdGeVltOXlMbU52YlRDQ0FpSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnSVBBRENDDQpBZ29DZ2dJQkFOclZjdUhhcnRabUE2RVFNQjM5bWdCbDhCYnZPRG54Y3laMDJFSGpZQVViYUtvSTZpQTBtaGw0DQp5Y2tXcGlIMTVQdHdGRWdDc2lMVXhtRXJuL1RrVnJrSTVoTDhjL0pqVXZLWE4rbDZvVVMxNTh0WHhFUkhuMGVvDQprby9KMUxaN0FBQ21qNWtYdTFkZWkyaEJMclhlN1pZYmVxNUpSQ095VXUyUWZNZkVtT245eHZaRmxBbzAxY1JiDQp3eHdpcUdDRW0rYUlNZW1XbFVaekQ3Y1RYOTlVd0tKS3lPYVlhMTI2d1JTSGhGQ1NHaFI4Z3FKNG4zSGJDbi93DQpyMzVLNXVGNXNHNG9UWm5qKy9PeFlKOTZ0bWFFUHFGR0pCQVcwUVVycDh3UnF3b2NyYWpwNTlMK0EwZlpSNVFZDQpWSG8rVWllVFZ6ZEV5cnRmS3Q5RDVOeFFvODc4MWJIckhmL2VIZ2Y1Yis5Zmk4U05lUi9vQ1JkT3RmK2dxWE5ZDQpUM3hiRW9id0VsMWhLd1RGRk9RRVh1VHVxbEduMWJmZTB1STJFZkVFdE0xRU1iYzB6VEZxTkFCdk5KNWZObFU1DQpOUHJWL2plL1ZWNnEzTGl2aW9qeUhCeHB4dEZDUHdmOGNFd1JxbTk2VHkwa3FBZG5sQW5tWlZYWXluS0F2U2MxDQpJWk9aR3EvSlB0aEZNQngraWR2TURMSFNUYmcrZVlYeVNDbEprRE1EWmVPKzBlYkZJWE1YMGRyN2JnUGpnU3ZwDQpnN0lKMGFUV3ZCV0hhSGI0aGRwMy9jaTRmVVp4ODc5NmdoRU5ESEhHVnpiNlhBZ2FVR04yOUw2bmpKeHNmK0VPDQoxR2Q1UmljZXUrTzF4eXBlcVF2T3N0QWdFSFNnYXhBSUpDUkNDaVJLZWF4ZVgvZmJSZnp2QWdNQkFBR2pnWWt3DQpnWVl3SHdZRFZSMGpCQmd3Rm9BVXZPS2VLMTcwc1lVSjFkSnZOcXBzYzIyQXEwMHdDUVlEVlIwVEJBSXdBREFMDQpCZ05WSFE4RUJBTUNCUEF3RXdZRFZSMGxCQXd3Q2dZSUt3WUJCUVVIQXdFd05nWURWUjBSQkM4d0xZSVBjbVZ6DQphVzVvWVhKaWIzSXVZMjl0Z2d0eVpYTnBibWhoY21KdmNvSU5kV0oxYm5SMUxXaGhjbUp2Y2pBTkJna3Foa2lHDQo5dzBCQVEwRkFBT0NBZ0VBVjdSbitsL1FkeGh0WFUwMlgrZzlpeWhiUUY4UlhUNmNrUFI2U0JlaWdCSjg2d1JxDQpOVnAwOThOMVl6cnhsb0ZDclE3a25uRnpRRUlRMk9XTVUzSUt5RXhHODVVb0p1MjVPRE54ZGhEY1JSamo0SkpFDQptZHhpTDhyV291Lys3Z2NueWIxWU5Nc2JUV2NsRHR4YU4xRHVXcU8xZFVQWUtoRHp5U0FFeTlFbHhQZldhd200DQpMNE9BMUVDYzd4bXRaaTZqREgzb0FrZTN2aEZ3a0tnRFV4SXhSNUk2TU1uVEtBQnpCMVJwem84YThXbVVqa2g3DQpPQnpJZ3ZKNzBwL2dPR1ZBMzZBTDFQamlBTnczbGZKaE1udVR1MUFSRTR0QlhvNTVTSHMxOEExTGdDeWpaKzNDDQpzQXIzaWFzSmlVZGdDWkduQkhkM1hQR0hHV1NDMU43ejNPNU9CbEpaTFIyZXVTbVVLZ0djeGxDdVNwRzd3L2pKDQpvM1RzN0ZYUVM4U0NaMkNFdFo2Y2RSU2IvZUdBUjAwMnA0aTkrL1p4cDU3V0lMWG0zM3g0UEsydXJtY1dqa2RZDQowRHFsZk52MDFBSldNM1RCK0I3RS9vd2FrKzVUeHBySEF6cm9YcFBNc2tyb2hOWW5wdXU2VUZOWTRMbmJ2OVJSDQpqNTJYUTVVZDdSM3kvYndrRmkxdTBoR04ybkVxUXdZUDY4VlFIQ0l2TnJPWjNVMmZGR3MwNDFxeGlwTzNreldmDQpGeElCanFpNHlkaHgzQ3ZuZ016Zy9KcVZvY1NlNXZQS0Rtd2VtNWsvL1NwNXlyaTZ1b2J3aU9KWTd0cjZwZEdyDQpISlpGY3Z1S1JKQzB4bTdDN2dMK0phcHhaV0tHREJjM3dkL05TSWo2U2N3VlFsaityR1l1VnVMR1BpRT0NCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0=
+      name: resinharbor.com
 ```
 新增完畢之後儲存離開  
 
 #### 新增Guest Cluster並且部屬拉harbor的yaml檔案  
 
-根據自己環境修改文件  
-`name`,`namespace`,`version`,`storageClass`  
+根據自己環境修改文件`name`,`namespace`,`version`,`storageClass`  
 其中`class`,`count`,`volumes`建議一樣即可  
 ```
 apiVersion: run.tanzu.vmware.com/v1alpha1
@@ -131,7 +136,7 @@ kubectl config use-context demogc1
 ```
 
 建立Deployment服務  
-其中image需要指定到harbor上的images(由前一個session產生，也可以放入自己的內容)
+其中`image`需要指定到harbor上的images(由前一個session產生，也可以放入自己的內容)
 ```
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
