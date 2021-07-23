@@ -59,12 +59,14 @@ kubectl label node mandy-k8s03 category=monitoring
 修改此附檔的values.yaml  
 需要修改幾個部分  
 Alertmananger的FQDN   
-
+![img](https://github.com/ReSin-Yan/DGX-Demo/blob/main/img/prometheusConfig%E7%AF%84%E4%BE%8B.png)  
 Alertmananger的SC名稱(根據自己的SC命名)  
-
+![img](https://github.com/ReSin-Yan/DGX-Demo/blob/main/img/prometheusConfig%E7%AF%84%E4%BE%8B.png)  
 grafana的FQDN  
-
+![img](https://github.com/ReSin-Yan/DGX-Demo/blob/main/img/prometheusConfig%E7%AF%84%E4%BE%8B.png)  
 prometheus的FQDN  
-
+![img](https://github.com/ReSin-Yan/DGX-Demo/blob/main/img/prometheusConfig%E7%AF%84%E4%BE%8B.png)  
 prometheus的StorageClass  
+![img](https://github.com/ReSin-Yan/DGX-Demo/blob/main/img/prometheusConfig%E7%AF%84%E4%BE%8B.png)  
+
 
