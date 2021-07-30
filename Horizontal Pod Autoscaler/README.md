@@ -39,7 +39,7 @@ kubectl top node
 
 ## Horizontal Pod Autoscaler    
   
-參考網址為:[Kube-prometheus](https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/ "link")  
+參考網址為:[Horizontal Pod Autoscaler演練](https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/ "link")  
 
 利用php-apha來進行測試  
 安裝完服務之後，利用大量的下載來達到讓CPU使用率衝高的測試  
