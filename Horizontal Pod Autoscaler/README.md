@@ -27,7 +27,7 @@ kubectl edit deploy metrics-server -n kube-system
 
 可以參考儀下圖片  
 
-![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Harbor/harbor%E8%A8%AD%E5%AE%9A.PNG)   
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Horizontal%20Pod%20Autoscaler/metrics-server%20setting.png)   
 
 安裝好之後會將原有服務砍掉重新建立一個  
 確認服務是否有安裝完成
