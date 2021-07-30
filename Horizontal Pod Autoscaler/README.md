@@ -30,16 +30,17 @@ kubectl edit deploy metrics-server -n kube-system
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Horizontal%20Pod%20Autoscaler/metrics-server%20setting.png)   
 
 安裝好之後會將原有服務砍掉重新建立一個  
-確認服務是否有安裝完成
+
+之後來確認服務是否有安裝完成
 ```
 kubectl top node
 ```
 如果有成功看到Node的CPU&RAM使用率，就代表安裝完成  
 
 ## Horizontal Pod Autoscaler    
+  
+參考網址為:[Kube-prometheus](https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/ "link")  
 
-參考網址為  
-https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
 利用php-apha來進行測試  
 安裝完服務之後，利用大量的下載來達到讓CPU使用率衝高的測試  
 
