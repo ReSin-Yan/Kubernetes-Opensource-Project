@@ -10,22 +10,11 @@ Jenkins支援各種運作方式，可以通過底層系統、Docker或著通過J
 
 
 ## Gitlab  
-與本文所在的位置Github類似  
-
-但要将代码上传到 GitHub上面，而且将项目设为私有还要收费。
-而 GitLab 则是开源免费的（社区版免费，企业版需要订阅）
-能够浏览源代码，管理缺陷和注释，非常适合在团队内部使用。
- 
-
- | 腳色 |
-|-------|
-| Promethues |
-| Grafana    |  
-| alertmanager    |
-
+與本文所在的位置Github類似   
+使用雲端平台的GitHub，需要將程式馬上傳，如果設為私有會需要額外收費。  
+GitLab就是完全免費的(社群版免費，企業版需要定月)  
+能夠瀏覽程式碼，管理BUG和註解，適合再團隊內部使用。  
 
 ## Harbor  
-
-## Contour  
-Contour是VMWare開發並且maintain的layer7 工具  
-對比是nginx-controller  
+安裝步驟參考下列連結  
+[Harbor](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/tree/main/Harbor "link")  
