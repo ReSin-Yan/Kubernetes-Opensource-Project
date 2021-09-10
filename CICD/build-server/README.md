@@ -1,4 +1,4 @@
-# Jenkins    
+# Build-server    
 
 以下會透過Docker的方式安裝來進行安裝build-server
 主要會透過dockerfiles的方式來把安裝的東西打包成images
