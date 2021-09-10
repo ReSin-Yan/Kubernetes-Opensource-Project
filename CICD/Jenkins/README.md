@@ -83,16 +83,27 @@ cat jenkins_home/secrets/initialAdminPassword
 ```
 
 將獲得到的Token輸入  
-圖片  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/input%20token.PNG)   
 
 接著選擇左邊安裝建議插件(之後會再補其它的插件)  
-圖片
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/install%20suggested%20plugin.PNG)   
 
 等待安裝完成
 
 建立admin帳號  
-圖片  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/creat%20admin.PNG)   
 
 設定URL  
 保持預設即可  
-圖片  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/set%20URL.PNG)   
+
+以上到這邊基本安裝完成  
+
+
+## Jenkins環境設定  
+
+#### 插件安裝  
+
+待補  
+
+#### 新增節點
