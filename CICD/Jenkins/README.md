@@ -1,11 +1,98 @@
 # Jenkins    
 
-以下會透過
+以下會透過Docker的方式安裝來進行安裝Jenkins  
+利用Docker方式可以省掉非常多步驟  
 
-## Harbor  
-開源專案常用的私有印象檔倉庫(private image registry)  
-參考文件  
-[Harbor](https://goharbor.io/docs/2.3.0/ "link")  
-[容器倉庫二三四](https://blog.pichuang.com.tw/20200201-container-repos/ "link")  
-包含使用https + FQDN的安裝方式  
-同時也會提到如何在VMWare Tanzu的Guest Cluster上面運行  
+
+## 安裝步驟  
+
+#### 環境硬體配置(建議需求)  
+使用的環境為  
+ | 配置 | 版本or建議規格 | 
+|-------|-------|
+| OS | ubutu desktop 20.04 |
+| CPU |  4 CPU |
+| Memory  | 4 GB+ |
+| Disk  | 50 GB+ |  
+
+以上皆為建議配置  
+建議可以設置稍微大一點的規格  
+Jenkins的插件非常多  
+
+#### 環境套件需求(必要)  
+ | 配置 | 版本or建議規格 | 
+|-------|-------|
+| Docker | Version 17.06.0-ce+ 或著更高版本 |
+
+#### 環境準備  
+
+環境更新及安裝基本套件  
+```
+sudo apt-get update && sudo apt-get -y upgrade
+sudo apt-get -y install vim build-essential curl ssh
+sudo apt-get install net-tools
+```
+
+安裝Docker engine    
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
+
+確認安裝版本
+```
+sudo docker --version
+```
+
+## Jenkins安裝  
+
+#### 環境準備  
+第一步需要建立放置Jenkins啟動之後  
+放置一些相關文件及記錄檔的位置  
+```
+mkdir jenkins_home
+```
+
+接著需要將此資料夾進行設定  
+分別設置此資料夾的權限  
+以及誰可以讀取(jenkins的images是預設跑root權限，所以在設定時要root權限給此資料夾)  
+```
+sudo chmod +777 jenkins_home
+sudo chown -R 1000:1000 jenkins_home/
+```
+
+接著執行部屬指令  
+注意這邊是需要jdk8版本的jenkins，因為此環境預計與gitlab連結，所以會需要jdk8版本  
+如果連結其它環境則不需要  
+```
+sudo docker run --name jenkins -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts-jdk8
+```
+#### 開啟網頁&基礎設置  
+接下來可以透過此網頁的IP:8080進入到jenkins環境  
+<https://ThisVMIP:8080/>  
+靜待服務開啟  
+
+接著會請您輸入啟動的token  
+啟動token可以在兩個地方找到  
+第一種方式如下圖，可以在執行的地方視窗找到  
+圖片  
+
+第二種方式需要另外開ssh連線  
+```
+cat jenkins_home/secrets/initialAdminPassword
+```
+
+將獲得到的Token輸入  
+圖片  
+
+接著選擇左邊安裝建議插件(之後會再補其它的插件)  
+圖片
+
+等待安裝完成
+
+建立admin帳號  
+圖片  
+
+設定URL  
+保持預設即可  
+圖片  
