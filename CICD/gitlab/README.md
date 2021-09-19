@@ -59,5 +59,5 @@ export GITLAB_HOME=/home/ubuntu/gitlab
 
 接著執行docker指令來創建服務
 ```
-sudo docker run --detach   --publish 443:443 --publish 80:80 --publish 2224:22   --name gitlab  $GITLAB_HOME/config:/etc/gitlab   --volume $GITLAB_HOME/logs:/var/log/gitlab   --volume $GITLAB_HOME//gitlab-ee:latest
+sudo docker run -d   -p 443:443 -p 80:80 -p 2224:22   --name gitlab   --restart always   -v $GITLAB_HOME/config:/etc/gitlab   -v $GITLAB_HOME/logs:/var/log/gitlab   -v $GITLAB_HOME/data:/var/opt/gitlab   gitlab/gitlab-ee:latest
 ```
