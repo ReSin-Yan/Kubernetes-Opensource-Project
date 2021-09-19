@@ -48,7 +48,7 @@ sh get-docker.sh
 sudo docker --version
 ```
 
-#### Gitlab建置  
+#### Gitlab建置   
 
 建立存放資料的位置資料夾  
 並將此資料夾設定環境變數  
@@ -61,3 +61,14 @@ export GITLAB_HOME=/home/ubuntu/gitlab
 ```
 sudo docker run -d   -p 443:443 -p 80:80 -p 2224:22   --name gitlab   --restart always   -v $GITLAB_HOME/config:/etc/gitlab   -v $GITLAB_HOME/logs:/var/log/gitlab   -v $GITLAB_HOME/data:/var/opt/gitlab   gitlab/gitlab-ee:latest
 ```
+
+#### 開啟網頁&基礎設置  
+接下來可以透過此網頁的IP:8080進入到jenkins環境  
+<http://ThisVMIP/>  
+靜待服務開啟  
+接著在指令介面輸入  
+```
+sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
+```
+取得登入用的密碼(預設帳號為root)
+
