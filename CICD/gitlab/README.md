@@ -48,7 +48,7 @@ sh get-docker.sh
 sudo docker --version
 ```
 
-#### 環境準備  
+#### Gitlab建置  
 
 建立存放資料的位置資料夾  
 並將此資料夾設定環境變數  
