@@ -116,3 +116,5 @@ ssh agent
 ssh pipline steps  
 
 #### 新增節點
+
+Host Key Verification Strategy 設定  
