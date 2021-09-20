@@ -1,4 +1,4 @@
-Last update: 2021/9/
+Last update: 2021/9/20
 # Kubernetes-Opensource-Project  
 
 
@@ -37,3 +37,10 @@ Prometheus跟Grafana是社群上最多人使用的監控套件
 Contour是VMWare開發並且maintain的layer7 工具  
 對比是nginx-controller  
 
+
+## CICD  
+CICD作為開發者很常的使用的一種開發架構  
+如何透過Kuberetnes來實現CICD的環境建置  
+本篇提供簡化版本的CICD環境建立  
+分別使用Gitlab作為程式編寫環境  
+以及Jenkins作為流程工具  
