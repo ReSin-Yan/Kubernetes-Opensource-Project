@@ -105,6 +105,10 @@ cat jenkins_home/secrets/initialAdminPassword
 
 #### 插件安裝  
 
-待補  
+Gitlab
+Gitlab Webhook
+Gitlab authentication
+generic webhook trigger
+
 
 #### 新增節點
