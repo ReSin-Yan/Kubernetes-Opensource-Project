@@ -72,3 +72,9 @@ sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
 取得登入用的密碼(預設帳號為root)
 
+#### 設定允許webhook  
+Jenkins與Gitlab的連結透過webhook進行  
+Gitlab新版本預設把local的功能關閉  
+所以必須將此功能打開  
+`Gitlab` > `Menu` > `Admin`  
+左下角`Setting` > `Network` > `Outbound Request` > 將兩個都勾起  
