@@ -34,4 +34,4 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 #### Gitlab 建立新專案  
 進到Gitlab頁面  
 點選`New Project` >  `Create blank project`  
-依序輸入`Project Name`並把Visibility Level調整成`Public`  
+依序輸入`Project Name`並把Visibility Level調整成`Public`  > 點選`Create Project`  
