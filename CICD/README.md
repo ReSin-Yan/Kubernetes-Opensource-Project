@@ -18,3 +18,8 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 ## Harbor  
 安裝步驟參考下列連結  
 [Harbor](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/tree/main/Harbor "link")  
+
+## Build-server  
+在此環境設置中  
+需要有一個環境用來建立容器images    
+並且在建立完成之後將images推送到Harbor容器倉庫  
