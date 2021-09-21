@@ -57,4 +57,32 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 回到jenkins頁面，如果可以看到左下角自動跑出build history及代表成功連結  
 
 
-#### Jenkins 建立新專案並且與Gitlab進行連結  
+#### 決定Jenkins pipline是寫在Jenkins or Gitlab  
+這段是可以自己決定的  
+本篇使用的方式為將檔案一起放入Gitlab內  
+所以需要額外設定兩個步驟  
+1.將pipline檔案放入Gitlab  
+2.在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
+
+#### 將pipline檔案放入Gitlab  
+在gitlab project內新增檔案  
+點選檔案上的`+`  > `New file` > 名子輸入 `Jenkinsfile` (記住此名稱，需要跟在Jenkins那邊設定相同)  
+
+
+接著貼上  
+
+```
+pipeline {
+  agent none 
+  stages {
+    stages("Build image"){
+      agent {label "build"}
+      steps{
+        sh """
+          ls
+        """
+      }
+    }
+  }
+}
+```
