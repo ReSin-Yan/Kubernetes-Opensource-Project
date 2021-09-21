@@ -92,3 +92,9 @@ pipeline {
 
 #### 在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
 回到Jenkins，點選 `Configure` > `pipeline`  
+分別設定  
+Definition > `pipeline script form SCM`  
+SCM > `Git`  
+Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
+Branch specifier > `*/*`  
+Script Path > `Jenkinsfile`
