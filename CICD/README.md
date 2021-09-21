@@ -75,7 +75,7 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 pipeline {
   agent none 
   stages {
-    stages("Build image"){
+    stage("Build image"){
       agent {label "build"}
       steps{
         sh """
@@ -86,3 +86,9 @@ pipeline {
   }
 }
 ```
+
+點選最下面的commit changes，注意這邊還未設定與jenkins連結  
+所以執行jenkins雖然會有反應，但是本身還未寫上任何的腳本文件，只會空跑  
+
+#### 在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
+回到Jenkins，點選 `Configure` > `pipeline`  
