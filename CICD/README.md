@@ -101,4 +101,4 @@ Script Path > `Jenkinsfile`
 圖片  
 
 接著可以在Gitlab測試是否連結成功  
-隨便更改一下只jenkinsfiles，或是新檔案都可以  
+隨便更改一下jenkinsfiles，或是新檔案都可以  
