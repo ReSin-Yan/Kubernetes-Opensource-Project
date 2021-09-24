@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webtest-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webtest-ui
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: webtest-ui
+        tier: frontend
+        secgroup: web-tier
+    spec:
+      containers:
+      - name: webtest-ui
+        image: resinharbor.com/demo/webserver:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
