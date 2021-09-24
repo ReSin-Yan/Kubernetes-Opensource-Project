@@ -102,3 +102,14 @@ Script Path > `Jenkinsfile`
 
 接著可以在Gitlab測試是否連結成功  
 隨便更改一下jenkinsfiles，或是新檔案都可以  
+
+#### 新增Kubernetes工作節點  
+這邊使用的方式是直接把kuberenets的控制節點加進來  
+所有的節點設置方式都如同buildserver  
+安裝步驟也相同  
+參考連結  
+Jenkins add node  
+buildserver設定  
+
+
+
