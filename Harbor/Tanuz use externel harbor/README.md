@@ -55,6 +55,7 @@ openssl s_client -connect <your harbor FQDN>.com:443
 在vsphere7.0.2之後，針對外部的認證，新增的設定值  
 先登入Tanzu的SC namespaces內  
 指令對應的參數根據環境輸入  
+登入使用者必須是administratror喔  
  | 參數 | 輸入值 | 
 |-------|:-----:| 
 | --server   |  10.74.0.1  |  
