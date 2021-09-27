@@ -111,5 +111,14 @@ Script Path > `Jenkinsfile`
 Jenkins add node  
 buildserver設定  
 
+#### 測試jenkinsfilev2  
+這邊需要先行安裝好Harbor  
+並請在buildserver的部分先設定好相關push的指令  
+參考連結  
+
+
+
+如果底層的k8s環境是Tanzu，需要額外設定到harbor的連結  
+
 
 
