@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
         stage("Build image"){
-            agent {label "build"}
+            agent {label "buildserver"}
             steps{
                 sh """
                     docker build build/ -t webserver:v1
@@ -10,7 +10,7 @@ pipeline {
             }
         }
         stage('Push image to Harbor') {
-            agent {label "build"}
+            agent {label "buildserver"}
             steps {
                 sh """
                     docker tag webserver:v1 resinharbor.com/demo/webserver:v1
@@ -19,7 +19,7 @@ pipeline {
             }
         }
         stage('Delete exist image') {
-            agent {label "build"}
+            agent {label "buildserver"}
             steps {
                 sh """
                     docker rmi webserver:v1
@@ -27,7 +27,7 @@ pipeline {
             }
         }
         stage('Deploy service on Development') {
-            agent {label "development"}
+            agent {label "developer"}
             steps {
                 sh """
                     kubectl apply -f webservice.yaml
@@ -37,22 +37,11 @@ pipeline {
             }
         }
         stage("show Development service IP"){
-            agent {label "development"}
+            agent {label "developer"}
             steps {
                 sh """
                     kubectl get svc | grep webtest-ui
                 """
-            }
-        }
-        stage('Send email') {
-            agent any
-            steps {
-                emailext(
-                    subject: ' Jenkins notify - ${PROJECT_NAME} - BUILD ${BUILD_NUMBER} - ${BUILD_STATUS}',
-                    to: 'resinyan@zodemo.com',
-                    from: 'pipeline@jenkins',
-                    body: '${DEFAULT_CONTENT}'
-                )
             }
         }
         stage('Check for Promote to Production') {
