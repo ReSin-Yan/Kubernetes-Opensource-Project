@@ -1,0 +1,33 @@
+pipeline {
+    agent none
+    stages {
+        stage("Check buildserver"){
+            agent {label "buildserver"}
+            steps{
+                sh """
+                    docker build build/ -t webserver:v1
+                    docker tag webserver:v1 resinharbor.com/demo/webserver:v1
+                    docker push resinharbor.com/demo/webserver:v1
+                """
+            }
+        }
+        stage('Check developer') {
+            agent {label "developer"}
+            steps {
+                sh """
+                    kubectl apply -f webservice.yaml
+                    kubectl apply -f web.yaml
+                """
+            }
+        }
+        stage("Check production"){
+            agent {label "production"}
+            steps {
+                sh """
+                    kubectl apply -f webservice.yaml
+                    kubectl apply -f web.yaml
+                """
+            }
+        }    
+    }
+}
