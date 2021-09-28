@@ -1,0 +1,82 @@
+pipeline {
+    agent none
+    stages {
+        stage("Build image"){
+            agent {label "build"}
+            steps{
+                sh """
+                    docker build build/ -t webserver:v1
+                """
+            }
+        }
+        stage('Push image to Harbor') {
+            agent {label "build"}
+            steps {
+                sh """
+                    docker tag webserver:v1 resinharbor.com/demo/webserver:v1
+                    docker push resinharbor.com/demo/webserver:v1
+                """
+            }
+        }
+        stage('Delete exist image') {
+            agent {label "build"}
+            steps {
+                sh """
+                    docker rmi webserver:v1
+                """
+            }
+        }
+        stage('Deploy service on Development') {
+            agent {label "development"}
+            steps {
+                sh """
+                    kubectl apply -f webservice.yaml
+                    kubectl delete -f web.yaml
+                    kubectl apply -f web.yaml
+                """
+            }
+        }
+        stage("show Development service IP"){
+            agent {label "development"}
+            steps {
+                sh """
+                    kubectl get svc | grep webtest-ui
+                """
+            }
+        }
+        stage('Send email') {
+            agent any
+            steps {
+                emailext(
+                    subject: ' Jenkins notify - ${PROJECT_NAME} - BUILD ${BUILD_NUMBER} - ${BUILD_STATUS}',
+                    to: 'resinyan@zodemo.com',
+                    from: 'pipeline@jenkins',
+                    body: '${DEFAULT_CONTENT}'
+                )
+            }
+        }
+        stage('Check for Promote to Production') {
+            agent {label "production"}
+            steps {
+                script {
+                    timeout(unit: 'MINUTES', time: 5) {
+                    input message: "Promote to Production", ok: "OK"
+                    stage("Deploy service on Production"){
+                        sh """
+                            kubectl apply -f webservice.yaml
+                            kubectl delete -f web.yaml
+                            kubectl apply -f web.yaml
+                        """
+                    }
+                    stage("show Production service IP"){
+                        sh """
+                            kubectl get svc | grep webtest-ui
+                        """
+                    }
+                    }
+                }
+            }
+        }
+        
+    }
+}
