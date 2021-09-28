@@ -1,0 +1,29 @@
+pipeline {
+    agent none
+    stages {
+        stage("Check buildserver"){
+            agent {label "buildserver"}
+            steps{
+                sh """
+                    ls
+                """
+            }
+        }
+        stage('Check developer') {
+            agent {label "developer"}
+            steps {
+                sh """
+                    ls
+                """
+            }
+        }
+        stage("Check production"){
+            agent {label "production"}
+            steps {
+                sh """
+                    ls
+                """
+            }
+        }    
+    }
+}
