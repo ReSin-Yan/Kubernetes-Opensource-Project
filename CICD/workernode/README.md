@@ -52,8 +52,7 @@ sh get-docker.sh
 sudo docker --version
 ```
 
-#### 如果環境是Tanzu  
-需要確認再執行kubectl指令時，不會因為放太久or其他原因  
-造成指令失敗  
-
-
+#### Tanzu  
+Tanzu Kubernetes Cluster需要確認環境可以成功連結到TKC環境並且有部屬服務的能力  
+  
+  
