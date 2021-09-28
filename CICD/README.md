@@ -35,6 +35,7 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 進到Gitlab頁面  
 點選`New Project` >  `Create blank project`  
 依序輸入`Project Name`並把Visibility Level調整成`Public`  > 點選`Create Project`  
+並把本專案內的gitlabprojectfile資料夾內全部的東西全都放進去  
 
 #### Jenkins 建立新專案並且與Gitlab進行連結  
 進到Jenkins頁面  .
