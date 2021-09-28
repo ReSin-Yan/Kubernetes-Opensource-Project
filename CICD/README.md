@@ -112,15 +112,19 @@ Script Path > `Jenkinsfile`
 Jenkins add node  
 buildserver設定  
 
+#### 測試jenkinsfilev1  
+打開jenkinsfilev1，將內容貼到原本的pipeline上面去覆蓋掉  
+此步驟的目的是驗證環境是否成功連結到三台機器上面並且執行對應的指令  
+
 #### 測試jenkinsfilev2  
 這邊需要先行安裝好Harbor  
-並請在buildserver的部分先設定好相關push的指令  
-參考連結  
-
-
+接著會透過v2檔案確認是否有成功使用harbor上面的檔案
 
 如果底層的k8s環境是Tanzu，需要額外設定到harbor的連結  
+參考連結  
 
+如果環境是一般kuberenets或是其他kuberenets的環境，需要確認在向harbor拉印象檔的時候是正常沒有問題的  
+一般kuberenets參考連結  
 
 
 #### 正式執行CICD腳本  
