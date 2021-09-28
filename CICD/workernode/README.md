@@ -5,6 +5,10 @@ worknode代表要讓jenkins放一個控制agent近來的節點
 例如指定lable為build，並且在pipeline中設定  
 建立images的時候指令build的節點執行  
 
+
+這邊的步驟是讓節點作為Tanzu Kubernetes Cluster的控制節點(kubectl)  
+如果本來環境不是Tanzu Kubernetes Cluster的話，可以少做對應的步驟  
+
 ## 安裝步驟  
 
 #### 環境硬體配置(建議需求)  
@@ -48,7 +52,7 @@ sh get-docker.sh
 sudo docker --version
 ```
 
-#### 如果環境是Tanzu or 其他kubernetes  
+#### 如果環境是Tanzu  
 需要確認再執行kubectl指令時，不會因為放太久or其他原因  
 造成指令失敗  
 
