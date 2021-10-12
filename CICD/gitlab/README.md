@@ -71,6 +71,8 @@ sudo docker run -d   -p 443:443 -p 80:80 -p 2224:22   --name gitlab   --restart 
 sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
 取得登入用的密碼(預設帳號為root)
+請記得再登入之後，記得去更改密碼  
+
 
 #### 設定允許webhook  
 Jenkins與Gitlab的連結透過webhook進行  
