@@ -64,16 +64,33 @@ kubectl apply -f configIPrange.yaml
 
 本資料夾內有放置相關的執行腳本，可以直接下載來使用  
 
+```
+sh installMetallb.sh [startIP] [endIP]
+```
+會執行兩個測試檔案  
+可以透過以下指令查看是否部屬成功  
 
 
-加入repo&進行升級  
-```
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts  
-helm repo update
-```
+### 安裝Contout(有LoadBalance的安裝方式)  
+如果本身的Kubernetes具有loadbalance的功能(如Tanzu)  
+loadbalance的功能是由平台開發商提供  
+可以跳過安裝loadbalance的部分  
 
-建立放置安裝內容的命名空間  
+透過helm安裝  
 ```
-kubectl create ns monitor  
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-release bitnami/contour
+kubectl get svc my-release-contour-envoy --namespace default
+kubectl describe svc my-release-contour-envoy --namespace default | grep Ingress | awk '{print $3}'
+```
+透過以上三行安裝完成  
+會有一個service去拿一個Loadbalance的IP(所以才需要LB工具)  
+
+接著可以執行測試檔案(測試檔案一樣放在本資料夾內)  
+測試之前需要修改路徑設定(如果client端是windows就修改hosts)
+
+```
+kubectl apply -f ingress.yaml
+kubectl apply -f ingress2.yaml
 ```
 
