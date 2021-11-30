@@ -102,9 +102,19 @@ cat jenkins_home/secrets/initialAdminPassword
 
 
 ## Jenkins環境設定  
+Jenkins基本安裝完成之後  
+還需要額外設定  
+分別為  
+`插件安裝`  
+跟  
+`加入節點`
+
 
 #### 插件安裝  
 
+`Dashboard` >  `Manage Jenkins` > `Manage Plugins` > `Available`
+依序搜尋這些套件並勾起  
+之後點選Install without restart  
 Gitlab  
 Gitlab Webhook  
 Gitlab authentication  
