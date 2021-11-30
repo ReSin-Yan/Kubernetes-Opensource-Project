@@ -146,11 +146,15 @@ ssh pipline steps
 
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode2.PNG)   
 
+
 Credentials 點選Add  
 選擇使用Username 跟 Password  
 並且輸入  
 在Jenkins內，是以憑證方式儲存，如果其它node的帳號密碼相同  
 那可以透過同一組憑證來使用  
+
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode4.PNG)   
+
 
 
  | 項目 | 輸入資訊 | 
