@@ -128,4 +128,35 @@ ssh pipline steps
 
 #### 新增節點
 
-Host Key Verification Strategy 設定  
+`Dashboard` >  `Manage Jenkins` > `Manage Nodes and Clouds` 左邊點選 `New Node`  
+輸入Node name  
+選擇Permanent Agent  
+
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode1.PNG)   
+
+
+
+ | 項目 | 輸入資訊 | 
+|-------|-------|
+| Name | 好分辨的即可 |
+| Remote root directory | /home/ubuntu/jenkins  (如果其他節點的安裝步驟有按照其它的安裝步驟) |
+| labels | 目前此node的角色，會影響之後在寫pipline的設定 |
+| launch method | Launch agents via ssh |
+| Host | 連線機器的IP |
+
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode2.PNG)   
+
+Credentials 點選Add  
+選擇使用Username 跟 Password  
+並且輸入  
+在Jenkins內，是以憑證方式儲存，如果其它node的帳號密碼相同  
+那可以透過同一組憑證來使用  
+
+
+ | 項目 | 輸入資訊 | 
+|-------|-------|
+| Host Key Verofocatopn Strategy | Non verifiying Verification Strategy |
+
+其它項目保持預設就可以了  
+
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/addnode3.PNG)   
