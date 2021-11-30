@@ -124,6 +124,7 @@ ssh
 Public over ssh  
 ssh agent  
 ssh pipline steps  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/plugin.PNG)   
 
 #### 新增節點
 
