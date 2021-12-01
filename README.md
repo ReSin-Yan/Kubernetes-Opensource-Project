@@ -1,6 +1,5 @@
-Last update: 2021/9/20
+Last update: 2021/12/1
 # Kubernetes-Opensource-Project  
-
 
 以下內容會根據常用到的Kuberenete的開源專案套件  
 以及常用的基本設定  
@@ -30,8 +29,6 @@ Prometheus跟Grafana是社群上最多人使用的監控套件
 | Grafana    |  
 | alertmanager    |
 
-
-## Velero  
 
 ## Contour  
 Contour是VMWare開發並且maintain的layer7 工具  
