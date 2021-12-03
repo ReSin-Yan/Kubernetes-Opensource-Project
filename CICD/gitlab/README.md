@@ -63,7 +63,7 @@ sudo docker run -d   -p 443:443 -p 80:80 -p 2224:22   --name gitlab   --restart 
 ```
 
 #### 開啟網頁&基礎設置  
-接下來可以透過此網頁的IP:8080進入到jenkins環境  
+接下來可以透過此網頁的IP:8080進入到Gitlab環境  
 <http://ThisVMIP/>  
 靜待服務開啟  
 接著在指令介面輸入  
