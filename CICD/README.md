@@ -62,7 +62,8 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 `Add webhook`  
 可以點選測試來測試看看連結是否成功  
 
-回到jenkins頁面，如果可以看到左下角自動跑出build history及代表成功連結  
+回到jenkins 專案的Dashboard，如果可以看到左下角自動跑出build history及代表成功連結  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting5.PNG)   
 
 
 #### 決定Jenkins pipline是寫在Jenkins or Gitlab  
