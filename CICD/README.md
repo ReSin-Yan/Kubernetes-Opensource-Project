@@ -43,15 +43,15 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 
 建立之後再 Build Triggers打勾 
 Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx  
-圖片  
+https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting1.PNG  
 注意要將URL複製下來接下來會將此貼到Gitlab的設定內  
 右下角 `Advanced` > 拉到最下面有一個 `Secret token` 點選Generate  
-圖片  
+https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting2.PNG  
 
 將以上兩個資訊記錄下來  
 在Gitlab頁面，進入到project內後  
 點選左邊`Setting` > `Webhooks` 依序輸入`URL` 和 `Secret token`  
-圖片  
+https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting3.PNG  
 `Add webhook`  
 可以點選測試來測試看看連結是否成功  
 
