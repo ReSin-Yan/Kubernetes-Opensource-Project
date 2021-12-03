@@ -37,6 +37,13 @@ GitLab就是完全免費的(社群版免費，企業版需要定月)
 依序輸入`Project Name`並把Visibility Level調整成`Public`  > 點選`Create Project`  
 並把本專案內的gitlabprojectfile資料夾內全部的東西全都放進去  
 
+接下來還需要設定Gitlab可以接Local的網路空間  
+`Menu` >  `Admin`  >  左方 `Setting` > `Network`  
+在Outbound requests欄位，點選Expand  
+新增勾選Allow requests to the local network from web hooks and services  
+之後儲存離開  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting4.PNG)   
+
 #### Jenkins 建立新專案並且與Gitlab進行連結  
 進到Jenkins頁面  .
 點選`New Item` > `點選pipline並且輸入名稱` (名稱建議有意義)  `OK`  
