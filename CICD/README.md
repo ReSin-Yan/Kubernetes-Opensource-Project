@@ -72,7 +72,7 @@ Build when a change is pushed to GitLab. GitLab webhook URL:xxxxxxxxxxxxx
 所以需要額外設定兩個步驟  
 1.將pipline檔案(Jenkinsfiles)放入Gitlab  
 2.在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
-![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
+
 #### 新增Kubernetes工作節點  
 這邊使用的方式是直接把kuberenets的控制節點加進來  
 所有的節點設置方式都如同buildserver  
@@ -116,7 +116,7 @@ SCM > `Git`
 Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
 Branch specifier > `*/*`  
 Script Path > `Jenkinsfile`  
-圖片  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
 
 接著可以在Gitlab測試是否連結成功  
 隨便更改一下jenkinsfiles，或是新檔案都可以  
