@@ -148,3 +148,7 @@ Script Path > `Jenkinsfile`
 
 
 
+```
+wget https://172.18.18.201/wcp/plugin/linux-amd64/vsphere-plugin.zip --no-check-certificate  
+```
+
