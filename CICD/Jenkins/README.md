@@ -64,7 +64,8 @@ sudo chown -R 1000:1000 jenkins_home/
 接著執行部屬指令  
 注意這邊是需要jdk8版本的jenkins，因為此環境預計與gitlab連結，所以會需要jdk8版本  
 如果連結其它環境則不需要  
-<font color="green"> 注意路徑/home/ubuntu/jenkins_home，請改成自己環境的路徑 </font>
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) 
+注意路徑/home/ubuntu/jenkins_home，請改成自己環境的路徑  
   
 ```
 sudo docker run --name jenkins -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts-jdk8
