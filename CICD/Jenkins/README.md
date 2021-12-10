@@ -72,7 +72,7 @@ sudo docker run --name jenkins -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenki
 ```
 #### 開啟網頁&基礎設置  
 接下來可以透過此網頁的IP:8080進入到jenkins環境  
-<https://ThisVMIP:8080/>  
+<http://ThisVMIP:8080/>  
 靜待服務開啟  
 
 接著會請您輸入啟動的token  
