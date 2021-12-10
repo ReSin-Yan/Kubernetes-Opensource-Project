@@ -150,5 +150,8 @@ Script Path > `Jenkinsfile`
 
 ```
 wget https://172.18.18.201/wcp/plugin/linux-amd64/vsphere-plugin.zip --no-check-certificate  
+export KUBECTL_VSPHERE_PASSWORD=P@ssw0rd  
+kubectl vsphere login --insecure-skip-tls-verify --server 172.18.18.201 --vsphere-username administrator@vsphere.local --tanzu-kubernetes-cluster-name resin-dev
+kubectl config use-context resin-dev
 ```
 
