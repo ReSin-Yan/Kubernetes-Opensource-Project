@@ -94,7 +94,7 @@ pipeline {
   agent none 
   stages {
     stage("Build image"){
-      agent {label "build"}
+      agent {label "buildserver"}
       steps{
         sh """
           ls
