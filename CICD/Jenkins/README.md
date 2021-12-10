@@ -85,6 +85,12 @@ sudo docker run --name jenkins -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenki
 cat jenkins_home/secrets/initialAdminPassword
 ```
 
+如果連線視窗關閉，網頁會關閉(因為容器會一起關掉)  
+此時開啟新的連線輸入以下即可  
+```
+sudo docker start jenkins
+```
+
 將獲得到的Token輸入  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/Jenkins/cicd/input%20token.PNG)   
 
