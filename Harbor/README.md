@@ -163,6 +163,19 @@ sudo ./install.sh --with-notary --with-trivy --with-chartmuseum
 預設帳號`amdin` 密碼  `Harbor12345`  
 此組帳號密碼可以在harbor.yml內設定  
 
+#### 掃描功能bug修復  
+原因是因為掃描功能的image的DNS解析有問題  
+所以會造成掃描失敗  
+參考以下步驟解決DNS問題  
+
+```
+$ sudo docker exec -u 0 -it trivy-adapter bash
+root [ / ]# echo "nameserver 127.0.0.11
+> nameserver 78.129.140.65
+> options edns0 ndots:0" > /etc/resolv.conf
+```
+
+
 ## 測試步驟  
 
 ### Docker login  
