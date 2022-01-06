@@ -153,7 +153,7 @@ vim harbor.yml
 #### 安裝  
 
 ```
-sudo ./install.sh
+sudo ./install.sh --with-notary --with-trivy --with-chartmuseum  
 ```
 
 #### 網頁連線測試
