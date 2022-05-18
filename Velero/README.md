@@ -159,6 +159,7 @@ kubectl get all -n webip
 ```
 
 ### Cluster migration  
+
 ### Enable API group versions  
 ### Resource filtering  
 ### Backup reference  
@@ -171,3 +172,9 @@ kubectl get all -n webip
 ### Changing RBAC permissions  
 
 ## 其他注意事項  
+默認備份保留期，以 TTL（生存時間）表示，為 30 天（720 小時）；您可以--ttl <DURATION>根據需要使用該標誌來更改它。  
+可以設置每日備份  
+
+```
+velero schedule create NAME --schedule="* * * * *" [flags]
+```
