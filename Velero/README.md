@@ -160,7 +160,7 @@ kubectl get all -n webip
 
 ### Cluster migration  
 
-叢集本身預設支援跨平台以及跨平台  
+叢集本身預設支援跨版本以及跨平台  
 但是需要考量到apiVersion的因素  
 例如  
 ingress在某個版本是v1  
