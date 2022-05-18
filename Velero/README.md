@@ -160,12 +160,7 @@ kubectl get all -n webip
 
 ### Cluster migration  
 
-叢集本身預設支援跨版本以及跨平台  
-但是需要考量到apiVersion的因素  
-例如  
-ingress在某個版本是v1  
-但是在舊版本是v1beta  
-諸如此類，如果需要避免此問題，需要設置EnableAPIGroupVersions  
+
 
 需要準備兩個叢集  
 兩個叢集之間的  
@@ -181,6 +176,17 @@ velero restore create --from-backup webip-backup
 可以觀察是否還原成功  
 
 ### Enable API group versions  
+
+
+叢集本身預設支援跨版本以及跨平台  
+但是需要考量到apiVersion的因素  
+例如  
+ingress在某個版本是v1  
+但是在舊版本是v1beta  
+諸如此類，如果需要避免此問題，需要設置EnableAPIGroupVersions  
+
+在安裝過程中加入 `--features=EnableAPIGroupVersions`  
+
 ### Resource filtering  
 ### Backup reference  
 ### Backup hooks  
