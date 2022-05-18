@@ -229,8 +229,6 @@ velero backup create <backup-name> --selector <key>!=<value>
 
 
 ### Backup reference  
-### Backup hooks  
-### Restore reference  
 
 可以設置schedule    
 
@@ -252,6 +250,8 @@ velero schedule create NAME --schedule="* * * * *" [flags]
 velero schedule create example-schedule --schedule="0 3 * * *"
 ```
 
+### Backup hooks  
+### Restore reference  
 ### Restore hooks  
 ### Run in any namespace  
 ### CSI Support (beta)  
