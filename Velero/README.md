@@ -167,6 +167,18 @@ ingress在某個版本是v1
 但是在舊版本是v1beta  
 諸如此類，如果需要避免此問題，需要設置EnableAPIGroupVersions  
 
+需要準備兩個叢集  
+兩個叢集之間的  
+BackupStorageLocations和VolumeSnapshotLocations  
+需要相同  
+
+切換到第二個叢集之後  
+進行還原  
+```
+velero restore create --from-backup webip-backup
+```
+
+可以觀察是否還原成功  
 
 ### Enable API group versions  
 ### Resource filtering  
