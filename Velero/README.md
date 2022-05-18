@@ -155,16 +155,45 @@ velero restore create --from-backup webip-backup
 
 可以透過指令檢查服務是否還原  
 ```
-kubectl get all -n webip
+kubectl get all -n webip  
 ```
 
 ### Cluster migration  
+
+叢集本身預設支援跨平台以及跨平台  
+但是需要考量到apiVersion的因素  
+例如  
+ingress在某個版本是v1  
+但是在舊版本是v1beta  
+諸如此類，如果需要避免此問題，需要設置EnableAPIGroupVersions  
+
 
 ### Enable API group versions  
 ### Resource filtering  
 ### Backup reference  
 ### Backup hooks  
 ### Restore reference  
+
+可以設置schedule    
+
+```
+velero schedule create NAME --schedule="* * * * *" [flags]
+使用以下格式
+ 
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+
+#每天凌晨3點進行備份
+velero schedule create example-schedule --schedule="0 3 * * *"
+```
+
 ### Restore hooks  
 ### Run in any namespace  
 ### CSI Support (beta)  
@@ -173,8 +202,4 @@ kubectl get all -n webip
 
 ## 其他注意事項  
 默認備份保留期，以 TTL（生存時間）表示，為 30 天（720 小時）；您可以--ttl <DURATION>根據需要使用該標誌來更改它。  
-可以設置每日備份  
 
-```
-velero schedule create NAME --schedule="* * * * *" [flags]
-```
