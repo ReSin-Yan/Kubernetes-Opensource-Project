@@ -250,14 +250,48 @@ velero schedule create NAME --schedule="* * * * *" [flags]
 velero schedule create example-schedule --schedule="0 3 * * *"
 ```
 
-### Backup hooks  
-### Restore reference  
-### Restore hooks  
-### Run in any namespace  
 ### CSI Support (beta)  
-### Verifying Self-signed Certificates  
 ### Changing RBAC permissions  
+
+
+設定Role 跟 RoleBinding
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: YOUR_NAMESPACE_HERE
+  name: ROLE_NAME_HERE
+  labels:
+    component: velero
+rules:
+  - apiGroups:
+      - velero.io
+    verbs:
+      - "*"
+    resources:
+      - "*"
+```
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ROLEBINDING_NAME_HERE
+subjects:
+  - kind: ServiceAccount
+    name: YOUR_SERVICEACCOUNT_HERE
+roleRef:
+  kind: Role
+  name: ROLE_NAME_HERE
+  apiGroup: rbac.authorization.k8s.io
+```
+
+
+### Backup hooks  
+velero提供了類似veeam 的VBRO功能  
+可以備份完成之後，執行某些行為  
+### Restore hooks  
 
 ## 其他注意事項  
 默認備份保留期，以 TTL（生存時間）表示，為 30 天（720 小時）；您可以--ttl <DURATION>根據需要使用該標誌來更改它。  
+
 
