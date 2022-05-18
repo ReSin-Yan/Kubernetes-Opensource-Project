@@ -188,6 +188,46 @@ ingress在某個版本是v1
 在安裝過程中加入 `--features=EnableAPIGroupVersions`  
 
 ### Resource filtering  
+
+velero可以根據需要備份的標籤、命名空間、kind(Deployment、configmaps、service....等)  
+根據以下方式進行範圍框選  
+
+
+
+--include-namespaces 
+
+```
+#備份跟還原特定的命名空間  
+velero backup create <backup-name> --include-namespaces <namespace>  
+velero restore create <backup-name> --include-namespaces <namespace1>,<namespace2>
+```
+
+
+--include-resources  
+```
+#備份deployment  
+velero backup create <backup-name> --include-resources deployments  
+
+#備份deployment跟configmaps    
+velero restore create <backup-name> --include-resources deployments,configmaps
+
+#備份特定namespace的deployment  
+velero backup create <backup-name> --include-resources deployments --include-namespaces <namespace>
+```
+
+
+–selector  
+```
+#根據label進行  
+velero backup create <backup-name> --selector <key>=<value>  
+velero backup create <backup-name> --selector <key>!=<value>  
+```
+
+同理於include，velero也包含了排除    
+–exclude-namespaces  
+–exclude-resources  
+
+
 ### Backup reference  
 ### Backup hooks  
 ### Restore reference  
