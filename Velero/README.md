@@ -71,7 +71,93 @@ velero install \
 
 
 ## 功能測試  
+
 ### Disaster recovery  
+使用下方yaml檔案建立一個帶有網頁的服務  
+
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webip
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ui
+  namespace: webip
+  labels:
+    app: nginx-ui
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-ui
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ui
+  namespace: webip
+spec:
+  replicas: 20
+  selector:
+    matchLabels:
+      app: nginx-ui
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-ui
+        tier: frontend
+        secgroup: web-tier
+    spec:
+      containers:
+      - name: nginx-ui
+        image: nginxdemos/hello
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+```
+
+執行此yaml之後  
+利用velero的選擇器，選擇只備份namespace為webip的資料  
+
+```
+velero backup create webip-backup --include-namespaces webip
+```
+可以分別透過指令以及在MiniO介面看到內容    
+```
+velero backup get
+```
+圖片  
+
+### Disaster recovery  
+
+模擬災難發生
+```
+kubectl delete ns webip  
+```
+or  
+透過yaml刪除  
+
+接著透過指令還原檔案  
+```
+velero restore create --from-backup webip-backup
+```
+
+可以透過指令檢查服務是否還原  
+```
+kubectl get all -n webip
+```
+
 ### Cluster migration  
 ### Enable API group versions  
 ### Resource filtering  
