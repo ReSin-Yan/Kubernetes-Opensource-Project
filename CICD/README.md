@@ -92,8 +92,6 @@ Branch specifier > `*/*`
 Script Path > `Jenkinsfile`  
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
 
-接著可以在Gitlab測試是否連結成功  
-隨便更改一下jenkinsfiles，或是新檔案都可以  
 
 #### 將pipline檔案放入Gitlab  
 在gitlab project內新增檔案  
@@ -118,13 +116,9 @@ pipeline {
 }
 ```
 
-點選最下面的commit changes，注意這邊還未設定與jenkins連結  
-所以執行jenkins雖然會有反應，但是本身還未寫上任何的腳本文件，只會空跑  
+接著可以回到 Jenkins頁面  
+及可以看到簡單的測試檔案  
 
-
-#### 測試jenkinsfilev1  
-打開jenkinsfilev1，將內容貼到原本的pipeline上面去覆蓋掉  
-此步驟的目的是驗證環境是否成功連結到三台機器上面並且執行對應的指令  
 
 #### 測試jenkinsfilev2  
 這邊需要先行安裝好Harbor  
