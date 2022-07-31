@@ -82,6 +82,19 @@ Jenkins add node
 buildserver設定  
 
 
+#### 在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
+回到Jenkins，點選 `Configure` > `pipeline`  
+分別設定  
+Definition > `pipeline script form SCM`  
+SCM > `Git`  
+Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
+Branch specifier > `*/*`  
+Script Path > `Jenkinsfile`  
+![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
+
+接著可以在Gitlab測試是否連結成功  
+隨便更改一下jenkinsfiles，或是新檔案都可以  
+
 #### 將pipline檔案放入Gitlab  
 在gitlab project內新增檔案  
 點選檔案上的`+`  > `New file` > 名子輸入 `Jenkinsfile` (記住此名稱，需要跟在Jenkins那邊設定相同)  
@@ -107,20 +120,6 @@ pipeline {
 
 點選最下面的commit changes，注意這邊還未設定與jenkins連結  
 所以執行jenkins雖然會有反應，但是本身還未寫上任何的腳本文件，只會空跑  
-
-#### 在jenkins內部設定預設執行的腳本從Gitlab內搜尋  
-回到Jenkins，點選 `Configure` > `pipeline`  
-分別設定  
-Definition > `pipeline script form SCM`  
-SCM > `Git`  
-Repository > `你的gitlab project URL`，注意要放最乾淨的路徑  
-Branch specifier > `*/*`  
-Script Path > `Jenkinsfile`  
-![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/CICD/img/jenkinsetting6.PNG)   
-
-接著可以在Gitlab測試是否連結成功  
-隨便更改一下jenkinsfiles，或是新檔案都可以  
-
 
 
 #### 測試jenkinsfilev1  
