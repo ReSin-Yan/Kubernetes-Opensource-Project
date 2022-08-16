@@ -25,7 +25,7 @@ kubectl edit deploy metrics-server -n kube-system
 - --kubelet-insecure-tls
 ```
 
-可以參考儀下圖片  
+可以參考以下圖片  
 
 ![img](https://github.com/ReSin-Yan/Kubernetes-Opensource-Project/blob/main/Horizontal%20Pod%20Autoscaler/metrics-server%20setting.png)   
 
