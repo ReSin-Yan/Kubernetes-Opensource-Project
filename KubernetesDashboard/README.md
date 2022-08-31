@@ -48,3 +48,11 @@ EOF
 ```
 kubectl -n kubernetes-dashboard create token admin-user
 ```
+
+## 從proxy進行登入  
+
+```
+kubectl proxy
+```
+
+之後設定tunnel  
