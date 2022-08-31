@@ -56,3 +56,4 @@ kubectl proxy
 ```
 
 之後設定tunnel  
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
