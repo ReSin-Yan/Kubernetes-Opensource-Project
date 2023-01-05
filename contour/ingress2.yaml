@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,21 +35,19 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: webip
-  labels:
-    app: webip
+  name: webip-ingress
 spec:
   rules:
-  - host: ingwebip.com
+  - host: webip.demo.com
     http:
       paths:
-      - backend:
-          serviceName: webip
-          servicePort: 80
-          #backend:
-          #serviceName: kuard
-          #servicePort: 80
-
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: webip
+            port:
+              number: 80
