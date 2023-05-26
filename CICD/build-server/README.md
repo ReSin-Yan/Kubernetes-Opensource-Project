@@ -30,7 +30,7 @@
 ```
 sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install vim build-essential curl ssh
-sudo apt-get install net-tools default-j git
+sudo apt-get install net-tools default-jre git
 
 mkdir jenkins
 sudo chmod +777 jenkins/
