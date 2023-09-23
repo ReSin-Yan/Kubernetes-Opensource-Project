@@ -12,7 +12,7 @@ vSphere Container Storage Plug-in也稱為上層 vSphere CSI 驅動是一個磁�
  | 安裝角色 |
 |-------|
 | vmtools |
-| Grafana    |  
+| Cloud Provider Interface    |  
 | alertmanager    |
 
 
@@ -21,8 +21,8 @@ vSphere Container Storage Plug-in也稱為上層 vSphere CSI 驅動是一個磁�
  | 事先需求 |
 |-------|
 | kubernetes 叢集(版本1.28.2) |
-| StorageClass    |  
-| ingress    |
+| 安裝在vsphere上的native kubernetes  |  
+
 
 
 ## 安裝步驟  
@@ -43,6 +43,10 @@ sudo apt-get install open-vm-tools
 所以會需要有能夠修改虛擬機的權限  
 所有節點都需要設定  
 
+ | 虛擬機參數 | 數值  |
+|-------|-------|
+| disk.EnableUUID | TRUE |    
+
 圖片
 
 ###  vSphere Cloud Provider  
@@ -53,37 +57,84 @@ sudo apt-get install open-vm-tools
 kubectl taint node [allnode] node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
 ```
 
-#### 建立CPI configMap  
+#### 下載設定檔案 
 
-根據自己環境輸入以下資訊(VirtualCenter、datacenters)，其他可以不用更改  
+根據目標環境的kubernetes版本來設定  
 ```
-[Global]
-insecure-flag = "true"
-port = "443"
-secret-name = "cpi-global-secret"
-secret-namespace = "kube-system"
-[VirtualCenter "10.66.0.9"]
-datacenters = "ZOLab-DataCenter"
+VERSION=1.28
+wget https://raw.githubusercontent.com/kubernetes/cloud-provider-vsphere/release-$VERSION/releases/v$VERSION/vsphere-cloud-controller-manager.yaml
 ```
 
+#### 編輯CPI secret  
+
+編輯vsphere-cloud-controller-manager.yaml這一之檔案  
+並且根據自己環境輸入以下資訊(vcenter連線資訊)  
+安裝過程中，我修改了IP以及帳號密碼  
 ```
-kubectl -n kube-system create cm cloud-config --from-file=./vsphere.conf
+stringData:
+  10.66.0.9.username: "xxx"
+  10.66.0.9.password: "xxx"
 ```
 
-#### 建立CPI secret  
-
-根據自己環境輸入以下資訊(vcenter連線資訊)，其他可以不用更改  
 ```
 apiVersion: v1
 kind: Secret
 metadata:
-  name: cpi-engineering-secret
+  name: vsphere-cloud-secret
+  labels:
+    vsphere-cpi-infra: secret
+    component: cloud-controller-manager
   namespace: kube-system
+  # NOTE: this is just an example configuration, update with real values based on your environment
 stringData:
-  [x.x.x.x].username: "xxx@xx.com"
-  [x.x.x.x].password: "xx"
+  10.66.0.9.username: "xxx"
+  10.66.0.9.password: "xxx"
+```
+
+#### 編輯CPI ConfigMap  
+
+根據以下Sample，修改成自己環境的內容  
+以下是我有修改的部分  
+並且將region部分刪除  
+
+```
+    # vcenter section
+    vcenter:
+      10.66.0.9:
+        server: 10.66.0.9
+        user: xxxx
+        password: xxxx
+        datacenters:
+          - ZOLab-DataCenter
 ```
 
 ```
-kubectl apply -f secret.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vsphere-cloud-config
+  labels:
+    vsphere-cpi-infra: config
+    component: cloud-controller-manager
+  namespace: kube-system
+data:
+  # NOTE: this is just an example configuration, update with real values based on your environment
+  vsphere.conf: |
+    # Global properties in this section will be used for all specified vCenters unless overriden in VirtualCenter section.
+    global:
+      port: 443
+      # set insecureFlag to true if the vCenter uses a self-signed cert
+      insecureFlag: true
+      # settings for using k8s secret
+      secretName: vsphere-cloud-secret
+      secretNamespace: kube-system
+
+    # vcenter section
+    vcenter:
+      10.66.0.9:
+        server: 10.66.0.9
+        user: vmadmin@zodemo.com
+        password: zeroneP@ssw0rd01
+        datacenters:
+          - ZOLab-DataCenter
 ```
