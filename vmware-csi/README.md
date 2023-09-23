@@ -174,8 +174,8 @@ cluster-distribution = "native"
 
 [VirtualCenter "10.66.0.9"]
 insecure-flag = "true"
-user = "vmadmin@zodemo.com"
-password = "zeroneP@ssw0rd01"
+user = "XXXm"
+password = "XXXXX"
 port = "443"
 datacenters = "ZOLab-DataCenter"
 ```
