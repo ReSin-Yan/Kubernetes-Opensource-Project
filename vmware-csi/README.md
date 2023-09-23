@@ -13,7 +13,7 @@ vSphere Container Storage Plug-in也稱為上層 vSphere CSI 驅動是一個磁�
 |-------|
 | vmtools |
 | Cloud Provider Interface    |  
-| alertmanager    |
+| vSphere Container Storage   |
 
 
 ## 事先準備  
@@ -144,3 +144,36 @@ data:
 kubectl apply -f vsphere-cloud-controller-manager.yaml
 ```
 
+###  vSphere Container Storage plug-in  
+
+
+#### 部屬namespace  
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/v3.0.0/manifests/vanilla/namespace.yaml
+```
+
+#### Tanint Master node  
+
+```
+kubectl taint nodes ubuntu-resinmaster01 node-role.kubernetes.io/control-plane=:NoSchedule
+```
+
+#### 編輯儲存區資訊  
+
+由於會使用到vsphere的儲存空間，所以要確保接下來的設定可以正常使用到此儲存區  
+EX: 帳號權限、是否可存取
+用簡單一點的說法就是，這一台虛擬機，新增磁碟可以選取的空間  
+
+```
+[Global]
+cluster-id = "1"
+cluster-distribution = "native"
+
+[VirtualCenter "10.66.0.9"]
+insecure-flag = "true"
+user = "vmadmin@zodemo.com"
+password = "zeroneP@ssw0rd01"
+port = "443"
+datacenters = "ZOLab-DataCenter"
+```
