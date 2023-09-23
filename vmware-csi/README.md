@@ -138,3 +138,9 @@ data:
         datacenters:
           - ZOLab-DataCenter
 ```
+#### 部屬檔案  
+
+```
+kubectl apply -f vsphere-cloud-controller-manager.yaml
+```
+
