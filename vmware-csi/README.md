@@ -165,6 +165,8 @@ kubectl taint nodes ubuntu-resinmaster01 node-role.kubernetes.io/control-plane=:
 EX: 帳號權限、是否可存取
 用簡單一點的說法就是，這一台虛擬機，新增磁碟可以選取的空間  
 
+
+建立檔案並部屬  
 ```
 [Global]
 cluster-id = "1"
@@ -177,3 +179,8 @@ password = "zeroneP@ssw0rd01"
 port = "443"
 datacenters = "ZOLab-DataCenter"
 ```
+
+```
+kubectl create secret generic vsphere-config-secret --from-file=csi-vsphere.conf --namespace=vmware-system-csi
+```
+
