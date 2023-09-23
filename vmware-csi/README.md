@@ -184,3 +184,118 @@ datacenters = "ZOLab-DataCenter"
 kubectl create secret generic vsphere-config-secret --from-file=csi-vsphere.conf --namespace=vmware-system-csi
 ```
 
+檢查檔案是否部屬成功  
+```
+kubectl get secret vsphere-config-secret --namespace=vmware-system-csi
+```
+
+#### 部屬vSphere Container Storage Plug-in  
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/v3.0.0/manifests/vanilla/vsphere-csi-driver.yaml
+```
+
+#### 建議修改vsphere-csi-controller數量為三個  
+
+由於會做成HA的模式，在三個master上面啟動  
+但是我只有一台master，所以我這邊修改成三個  
+
+```
+kubectl edit deploy vsphere-csi-controller -n vmware-system-csi
+```
+
+
+```
+kubectl edit deploy vsphere-csi-controller -n vmware-system-csi
+```
+
+
+###  功能測試  
+
+#### 建立sotrageclass  
+
+建立以下storageclass.yaml  
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: vmware-csi-test
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.vsphere.vmware.com
+```
+
+```
+kubectl apply -f storageclass.yaml  
+```
+
+#### 建立測試服務  
+
+
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: demo-pvc
+  labels:
+    app: demo
+    pvc: demo
+spec:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebrowser-app
+  labels:
+    app: filebrowser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filebrowser
+  template:
+    metadata:
+      labels:
+        app: filebrowser
+    spec:
+      containers:
+      - name: filebrowser
+        image: hurlenko/filebrowser
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        name: http
+        volumeMounts:
+        - mountPath: /data
+          name: data1
+      volumes:
+      - name: data1
+        persistentVolumeClaim:
+          claimName: demo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: filebrowser
+  labels:
+    app: filebrowser
+spec:
+  ports:
+  - port: 80
+    name: filebrowser
+    targetPort: 8080
+  selector:
+    app: filebrowser
+  type: NodePort
+```
+
+
+測試服務是否正常建立  
